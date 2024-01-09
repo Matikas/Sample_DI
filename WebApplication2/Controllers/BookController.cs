@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Net;
 using WebApplication2.Databases;
 using WebApplication2.DTOs;
 using WebApplication2.Models;
@@ -11,9 +12,9 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookDatabase _bookDataBase;
+        private readonly IBooksRepository _bookDataBase;
 
-        public BookController(IBookDatabase bookDataBase)
+        public BookController(IBooksRepository bookDataBase)
         {
             _bookDataBase = bookDataBase;
         }
@@ -26,10 +27,16 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet("single/{id}")]
-        public Book GetSingleBook(int id)
+        public ActionResult<Book> GetSingleBook(int id)
         {
             var data = _bookDataBase.GetAll().Find(b => b.Id == id);
-            return data;
+
+            if(data == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(data);
         }
 
         [HttpGet("pagedlist/{pageNum}")]
@@ -47,9 +54,11 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public void CreateBook(Book book)
+        public ActionResult CreateBook(Book book)
         {
             _bookDataBase.InsertBook(book);
+
+            return StatusCode((int)HttpStatusCode.Created);
         }
 
         [HttpPut]

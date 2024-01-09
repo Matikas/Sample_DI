@@ -2,7 +2,7 @@
 
 namespace WebApplication2.Databases
 {
-    public interface ITodoDatabase
+    public interface ITodoRepository
     {
         List<TodoItem> GetAll();
     }

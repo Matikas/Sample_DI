@@ -9,9 +9,9 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly ToDoFakeDatabase _todoDatabase;
+        private readonly ToDoRepository _todoDatabase;
 
-        public TodoController(ToDoFakeDatabase todoDatabase)
+        public TodoController(ToDoRepository todoDatabase)
         {
             _todoDatabase = todoDatabase;
         }

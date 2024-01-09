@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Databases;
 
 namespace WebApplication2
@@ -16,8 +17,10 @@ namespace WebApplication2
             builder.Services.AddSwaggerGen();
 
             // Dependency Injection (DI, IoC) configuration:
-            builder.Services.AddSingleton<IBookDatabase, BookDataBase>();
-            builder.Services.AddScoped<ITodoDatabase, ToDoFakeDatabase>();
+            builder.Services.AddScoped<IBooksRepository, BooksRepository>();
+            builder.Services.AddScoped<ITodoRepository, ToDoRepository>();
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
             // DI configuration end
 
             var app = builder.Build();

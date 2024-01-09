@@ -2,7 +2,7 @@
 
 namespace WebApplication2.Databases
 {
-    public class ToDoFakeDatabase : ITodoDatabase
+    public class ToDoRepository : ITodoRepository
     {
         private static List<TodoItem> todoList = new List<TodoItem>
         {

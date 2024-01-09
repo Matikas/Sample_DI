@@ -2,7 +2,7 @@
 
 namespace WebApplication2.Databases
 {
-    public interface IBookDatabase
+    public interface IBooksRepository
     {
         List<Book> GetAll();
         void InsertBook(Book book);
