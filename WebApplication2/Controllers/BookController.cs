@@ -20,7 +20,7 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet("list")]
-        public IEnumerable<Book> GetAll()
+        public IEnumerable<Book> GetAllBooksFromApi()
         {
             var data = _bookDataBase.GetAll();
             return data;
@@ -29,7 +29,8 @@ namespace WebApplication2.Controllers
         [HttpGet("single/{id}")]
         public ActionResult<Book> GetSingleBook(int id)
         {
-            var data = _bookDataBase.GetAll().Find(b => b.Id == id);
+            var booksFromRepository = _bookDataBase.GetAll();
+            var data = booksFromRepository.Find(b => b.Id == id);
 
             if(data == null)
             {
