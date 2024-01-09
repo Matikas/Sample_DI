@@ -43,7 +43,7 @@ namespace WebApplication2.Controllers
         [HttpGet("pagedlist/{pageNum}")]
         public IEnumerable<Book> GetPagedList(int pageNum, int pageSize)
         {
-            var data = _bookDataBase.GetAll().Skip((pageNum - 1) * pageSize).Take(pageSize);
+            var data = _bookDataBase.GetBooksPage(pageNum, pageSize);
             return data;            
         }
 

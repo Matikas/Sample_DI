@@ -68,5 +68,10 @@ namespace WebApplication2.Databases
 
             _applicationDbContext.SaveChanges();
         }
+
+        public List<Book> GetBooksPage(int pageNum, int pageSize)
+        {
+            return _applicationDbContext.Books.Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
+        }
     }
 }
